@@ -1,0 +1,59 @@
+### Registrar novo usuário
+POST http://localhost:5179/api/auth/register
+Content-Type: application/json
+
+{
+    "name": "João Silva",
+    "email": "joao@email.com",
+    "password": "123456"
+}
+
+### Login com usuário existente
+POST http://localhost:5179/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "joao@email.com",
+    "password": "123456"
+}
+
+### Login com senha errada (deve falhar)
+POST http://localhost:5179/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "joao@email.com",
+    "password": "senhaerrada"
+}
+
+### Registrar com email duplicado (deve falhar)
+POST http://localhost:5179/api/auth/register
+Content-Type: application/json
+
+{
+    "name": "João Duplicado",
+    "email": "joao@email.com",
+    "password": "123456"
+}
+
+###############################################
+# ROTAS PROTEGIDAS (requer token JWT)
+###############################################
+
+@token = SEU_TOKEN_AQUI
+
+### Obter perfil do usuário (requer autenticação)
+GET http://localhost:5179/api/user/profile
+Authorization: Bearer {{token}}
+
+### Atualizar perfil do usuário (requer autenticação)
+PUT http://localhost:5179/api/user/profile
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Novo Nome"
+}
+
+### Acessar perfil sem token (deve retornar 401)
+GET http://localhost:5179/api/user/profile
