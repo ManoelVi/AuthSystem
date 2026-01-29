@@ -41,3 +41,5 @@ logs/
 # Claude Code
 .claude/
 nul
+
+.gitignore
